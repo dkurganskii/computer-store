@@ -1,9 +1,16 @@
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import Home from './pages/Home'
 
-import './App.css';
-
-const App = () => (
-    <div >
-        <p>react app</p>
-    </div>
-);
+const App = () => {
+    return (
+        <Switch>
+            <Route path='/' component={Home} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/register' component={Register} />
+        </Switch>
+    )
+}
 export default App;
