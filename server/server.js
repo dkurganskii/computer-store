@@ -5,9 +5,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-
-// import routes
-const authRoutes = require('./routes/auth');
+const { readdirSync } = require('fs')
 
 // app
 const app = express();
@@ -32,7 +30,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // routes middleware
-app.use('/api', authRoutes);
+readdirSync('./routes').map((r) => app.use('/api', require('./routes/' + r)))
 
 
 // port
