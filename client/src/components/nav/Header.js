@@ -5,7 +5,6 @@ import {
     SettingOutlined,
     UserOutlined,
     UserAddOutlined,
-    LoadingOutlined,
     LoginOutlined,
 } from "@ant-design/icons";
 import { Link, useHistory } from "react-router-dom";
