@@ -41,17 +41,23 @@ const Login = ({ history }) => {
             const idTokenResult = await user.getIdTokenResult()
 
             createOrUpdateUser(idTokenResult.token)
-                .then(res => console.log('Create or update res', res))
+                .then(res => {
+                    console.log('RES', res)
+                    dispatch({
+                        type: 'LOGGED_IN_USER',
+                        payload: {
+                            name: res.data.name,
+                            email: res.data.email,
+                            token: idTokenResult.token,
+                            role: res.data.role,
+                            _id: res.data._id
+                        }
+                    })
+                })
                 .catch()
 
-            // dispatch({
-            //     type: 'LOGGED_IN_USER',
-            //     payload: {
-            //         email: user.email,
-            //         token: idTokenResult.token
-            //     }
-            // })
-            // history.push('/')
+
+            history.push('/')
         } catch (error) {
             console.log(error)
             toast.error(error.message)

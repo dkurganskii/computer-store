@@ -36,14 +36,18 @@ const RegisterComplete = ({ history }) => {
                 // get user id token 
                 let user = auth.currentUser
                 await user.updatePassword(password)
+                await user
+                    .updateProfile({
+                        displayName: email.split('@')[0],
+                    })
+                    .then(function () {
+                        // Update successful.
+                    })
                 const idTokenResult = await user.getIdTokenResult()
                 // redux store
                 console.log('user: ', user, 'idTokenResult: ', idTokenResult)
                 // redirect
                 history.push('/')
-
-
-
 
             }
         } catch (error) {
