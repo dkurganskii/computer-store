@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 import { Switch, Route } from "react-router-dom";
+
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Home from "./pages/Home";
@@ -10,8 +11,10 @@ import RegisterComplete from './pages/auth/RegisterComplete'
 import ForgotPassword from './pages/auth/ForgotPasswod'
 import History from './pages/user/History'
 import UserRoute from './components/routes/UserRoute'
+import AdminRoute from './components/routes/AdminRoute'
 import Password from './pages/user/Password'
 import Wishlist from './pages/user/Wishlist'
+import AdminDashboard from './pages/admin/AdminDashboard'
 
 import { auth } from './firebase'
 import { useDispatch } from 'react-redux'
@@ -46,7 +49,7 @@ const App = () => {
         })
         // cleanup
         return () => unsubscribe()
-    }, [])
+    }, [dispatch])
     return (
         <>
             <Header />
@@ -60,6 +63,7 @@ const App = () => {
                 <UserRoute exact path="/user/history" component={History} />
                 <UserRoute exact path="/user/password" component={Password} />
                 <UserRoute exact path="/user/wishlist" component={Wishlist} />
+                <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
             </Switch>
         </>
     );
