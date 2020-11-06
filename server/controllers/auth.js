@@ -32,3 +32,4 @@ exports.currentUser = async (req, res) => {
         }
     })
 }
+
