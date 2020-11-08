@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { createCategory, getCategories, removeCategory } from '../../../functions/category'
 import { Link } from 'react-router-dom'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import CategoryForm from '../../../components/forms/CategoryForm'
 
 
 const CategoryCreate = () => {
@@ -59,17 +60,7 @@ const CategoryCreate = () => {
         }
     }
 
-    const categoryForm = () => (
-        <form onSubmit={handleSubmit}>
-            <div className='form-group'>
-                <label>Name</label>
-                <input type='text' className='form-control' onChange={e => setName(e.target.value)}
-                    value={name} autoFocus required />
-                <br />
-                <button className='btn btn-outline-primary'>Save</button>
-            </div>
-        </form>
-    )
+
     return (
         <div className='container-fluid'>
             <div className='row'>
@@ -78,16 +69,18 @@ const CategoryCreate = () => {
                 </div>
                 <div className='col'>
                     {loading ? <h4 className='text-danger'>Loadig...</h4> : <h4>Create category</h4>}
-                    {categoryForm()}
-                    <hr />
-                    {categories.map((c) => (
-                        <div className='alert alert-secondary' key={c._id}>{c.name}
-                            <span onClick={() => handleRemove(c.slug)} className='btn btn-sm float-right'><DeleteOutlined className='text-danger' /></span>
-                            <Link to={`/admin/category/${c.slug}`}>
-                                <span className='btn btn-sm float-right'><EditOutlined className='text-warning' />
-                                </span></Link>
-                        </div>
-                    ))}
+                    <CategoryForm handleSubmit={handleSubmit} name={name} setName={setName} />
+                    < hr />
+                    {
+                        categories.map((c) => (
+                            <div className='alert alert-secondary' key={c._id}>{c.name}
+                                <span onClick={() => handleRemove(c.slug)} className='btn btn-sm float-right'><DeleteOutlined className='text-danger' /></span>
+                                <Link to={`/admin/category/${c.slug}`}>
+                                    <span className='btn btn-sm float-right'><EditOutlined className='text-warning' />
+                                    </span></Link>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </div>
