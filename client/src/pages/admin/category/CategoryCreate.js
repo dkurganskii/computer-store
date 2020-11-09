@@ -6,6 +6,7 @@ import { createCategory, getCategories, removeCategory } from '../../../function
 import { Link } from 'react-router-dom'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import CategoryForm from '../../../components/forms/CategoryForm'
+import LocalSearch from '../../../components/forms/LocalSearch'
 
 
 const CategoryCreate = () => {
@@ -13,7 +14,7 @@ const CategoryCreate = () => {
     const [name, setName] = useState('')
     const [loading, setLoading] = useState(false)
     const [categories, setCategories] = useState([])
-    // step1
+    // step 1
     const [keyword, setKeyword] = useState('')
 
     useEffect(() => {
@@ -39,9 +40,7 @@ const CategoryCreate = () => {
                     toast.error(err.response.data)
                 }
             })
-
     }
-
     const handleRemove = async (slug) => {
         if (window.confirm("Delete?")) {
             setLoading(true)
@@ -62,13 +61,7 @@ const CategoryCreate = () => {
         }
     }
 
-    // step3
-    const handleSearchChange = (e) => {
-        e.preventDefault()
-        setKeyword(e.target.value.toLowerCase())
-    }
-
-    // step4
+    // step 4
     const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword)
 
     return (
@@ -80,12 +73,11 @@ const CategoryCreate = () => {
                 <div className='col'>
                     {loading ? <h4 className='text-danger'>Loadig...</h4> : <h4>Create category</h4>}
                     <CategoryForm handleSubmit={handleSubmit} name={name} setName={setName} />
-                    {/* step2 */}
-                    <input type='search' placeholder='Filter' value={keyword}
-                        onChange={handleSearchChange} className='form-control mb-4' />
-                    < hr />
-                    {/* step 5 */}
 
+                    {/* step 2 and step 3 */}
+                    <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+
+                    {/* step 5 */}
                     {
                         categories.filter(searched(keyword)).map((c) => (
                             <div className='alert alert-secondary' key={c._id}>{c.name}
