@@ -7,7 +7,7 @@ import { createProduct } from "../../../functions/product";
 const initialState = {
     title: "Macbook Pro",
     description: "This is the best Apple product",
-    price: "4500",
+    price: "45000",
     categories: [],
     category: "",
     subs: [],
@@ -53,7 +53,8 @@ const ProductCreate = () => {
             })
             .catch((err) => {
                 console.log(err);
-                if (err.response.status === 400) toast.error(err.response.data);
+                // if (err.response.status === 400) toast.error(err.response.data);
+                toast.error(err.response.data.err);
             });
     };
 
