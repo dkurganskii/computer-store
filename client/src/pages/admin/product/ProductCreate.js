@@ -4,11 +4,12 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
+import { getCategories } from "../../../functions/category";
 
 const initialState = {
     title: "Macbook Pro",
     description: "This is the best Apple product",
-    price: "45000",
+    price: "4500",
     categories: [],
     category: "",
     subs: [],
@@ -26,6 +27,13 @@ const ProductCreate = () => {
 
     // redux
     const { user } = useSelector((state) => ({ ...state }));
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    const loadCategories = () =>
+        getCategories().then((c) => setValues({ ...values, categories: c.data }));
 
     const handleSubmit = (e) => {
         e.preventDefault();
