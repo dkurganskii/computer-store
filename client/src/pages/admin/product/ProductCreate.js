@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
+import FileUpload from "../../../components/forms/FileUpload";
 
 const initialState = {
     title: "Macbook Pro",
@@ -57,7 +58,7 @@ const ProductCreate = () => {
         // console.log(e.target.name, " ----- ", e.target.value);
     };
 
-    const handleCatagoryChange = (e) => {
+    const handleCategoryChange = (e) => {
         e.preventDefault();
         console.log("CLICKED CATEGORY", e.target.value);
         setValues({ ...values, subs: [], category: e.target.value });
@@ -81,12 +82,16 @@ const ProductCreate = () => {
 
                     {JSON.stringify(values.subs)}
 
+                    <div className="p-3">
+                        <FileUpload />
+                    </div>
+
                     <ProductCreateForm
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
                         setValues={setValues}
                         values={values}
-                        handleCatagoryChange={handleCatagoryChange}
+                        handleCategoryChange={handleCategoryChange}
                         subOptions={subOptions}
                         showSub={showSub}
                     />
