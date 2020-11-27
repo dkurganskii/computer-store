@@ -25,7 +25,7 @@ const initialState = {
 const ProductCreate = () => {
     const [values, setValues] = useState(initialState);
     const [subOptions, setSubOptions] = useState([]);
-    const [showSub, setShowSub] = useState(false)
+    const [showSub, setShowSub] = useState(false);
 
     // redux
     const { user } = useSelector((state) => ({ ...state }));
@@ -57,14 +57,15 @@ const ProductCreate = () => {
         // console.log(e.target.name, " ----- ", e.target.value);
     };
 
-    const handleCategoryChange = (e) => {
+    const handleCatagoryChange = (e) => {
         e.preventDefault();
         console.log("CLICKED CATEGORY", e.target.value);
-        setValues({ ...values, category: e.target.value });
+        setValues({ ...values, subs: [], category: e.target.value });
         getCategorySubs(e.target.value).then((res) => {
             console.log("SUB OPTIONS ON CATGORY CLICK", res);
             setSubOptions(res.data);
         });
+        setShowSub(true);
     };
 
     return (
@@ -77,13 +78,15 @@ const ProductCreate = () => {
                 <div className="col-md-10">
                     <h4>Product create</h4>
                     <hr />
+
                     {JSON.stringify(values.subs)}
+
                     <ProductCreateForm
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
-                        values={values}
                         setValues={setValues}
-                        handleCategoryChange={handleCategoryChange}
+                        values={values}
+                        handleCatagoryChange={handleCatagoryChange}
                         subOptions={subOptions}
                         showSub={showSub}
                     />
