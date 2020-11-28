@@ -1,5 +1,6 @@
 const Product = require("../models/product");
 const slugify = require("slugify");
+const { populate } = require("../models/product");
 
 exports.create = async (req, res) => {
     try {
@@ -16,8 +17,14 @@ exports.create = async (req, res) => {
     }
 };
 
-exports.read = async (req, res) => {
-    let products = await Product.find({});
+exports.listAll = async (req, res) => {
+    let products = await Product.find({})
+        .limit(parseInt(req.params.count))
+        .populate('category')
+        .populate('subs')
+        .sort([['CreatedAt, desc']])
+        .exec()
+
     res.json(products);
 };
 
