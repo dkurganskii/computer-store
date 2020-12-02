@@ -1,6 +1,5 @@
 const Product = require("../models/product");
 const slugify = require("slugify");
-const { populate } = require("../models/product");
 
 exports.create = async (req, res) => {
     try {
@@ -20,11 +19,10 @@ exports.create = async (req, res) => {
 exports.listAll = async (req, res) => {
     let products = await Product.find({})
         .limit(parseInt(req.params.count))
-        .populate('category')
-        .populate('subs')
-        .sort([['CreatedAt, desc']])
-        .exec()
-
+        .populate("category")
+        .populate("subs")
+        .sort([["createdAt", "desc"]])
+        .exec();
     res.json(products);
 };
 
@@ -68,15 +66,38 @@ exports.update = async (req, res) => {
     }
 };
 
+// WITHOUT PAGINATION
+// exports.list = async (req, res) => {
+//   try {
+//     // createdAt/updatedAt, desc/asc, 3
+//     const { sort, order, limit } = req.body;
+//     const products = await Product.find({})
+//       .populate("category")
+//       .populate("subs")
+//       .sort([[sort, order]])
+//       .limit(limit)
+//       .exec();
+
+//     res.json(products);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// WITH PAGINATION
 exports.list = async (req, res) => {
     try {
         // createdAt/updatedAt, desc/asc, 3
-        const { sort, order, limit } = req.body;
+        const { sort, order, page } = req.body;
+        const currentPage = page || 1;
+        const perPage = 3; // 3
+
         const products = await Product.find({})
+            .skip((currentPage - 1) * perPage)
             .populate("category")
             .populate("subs")
             .sort([[sort, order]])
-            .limit(limit)
+            .limit(perPage)
             .exec();
 
         res.json(products);
@@ -85,4 +106,7 @@ exports.list = async (req, res) => {
     }
 };
 
-
+exports.productsCount = async (req, res) => {
+    let total = await Product.find({}).estimatedDocumentCount().exec();
+    res.json(total);
+};
