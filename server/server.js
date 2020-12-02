@@ -7,6 +7,7 @@ const path = require('path');
 const cors = require('cors');
 const { readdirSync } = require('fs')
 
+
 // app
 const app = express();
 
@@ -26,8 +27,10 @@ mongoose.connection.on('error', (err) => {
 
 // middlewares
 app.use(morgan('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb', extended: true }))
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
 app.use(cors());
+
 
 // routes middleware
 readdirSync('./routes').map((r) => app.use('/api', require('./routes/' + r)))
