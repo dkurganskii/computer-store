@@ -86,6 +86,7 @@ exports.update = async (req, res) => {
 
 // WITH PAGINATION
 exports.list = async (req, res) => {
+    // console.table(req.body);
     try {
         // createdAt/updatedAt, desc/asc, 3
         const { sort, order, page } = req.body;
