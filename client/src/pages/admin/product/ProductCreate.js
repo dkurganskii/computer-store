@@ -11,7 +11,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 const initialState = {
     title: "Macbook Pro",
     description: "This is the best Apple product",
-    price: "4500",
+    price: "450",
     categories: [],
     category: "",
     subs: [],
