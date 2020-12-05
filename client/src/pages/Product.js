@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getProduct, productStar } from '../functions/product'
 import SingleProduct from '../components/cards/SingleProduct'
 import { useSelector } from 'react-redux'
+import { showAverage } from '../functions/rating'
 
 const Product = ({ match }) => {
     const [product, setProduct] = useState({})
