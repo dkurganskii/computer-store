@@ -11,12 +11,16 @@ export const showAverage = (p) => {
         let totalReduced = total.reduce((p, n) => p + n, 0)
         let highest = length * 5
         let result = (totalReduced * 5) / highest
-        console.log('result', result)
 
         return (
             <div className='text-center pt-1 pb-3'>
                 <span>
-                    <StarRating rating={result} />
+                    <StarRating starDimension="20px"
+                        starSpacing="2px"
+                        starRatedColor='red'
+                        editing={false}
+                        rating={result}
+                    /> ({p.ratings.length})
                 </span>
             </div>
         )
