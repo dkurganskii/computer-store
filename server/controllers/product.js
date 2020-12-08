@@ -168,7 +168,7 @@ const handleQuery = async (req, res, query) => {
     res.json(products)
 }
 
-const handePrice = async (req, res, price) => {
+const handlePrice = async (req, res, price) => {
     try {
         let products = await Product.find({
             price: {
