@@ -3,8 +3,9 @@ import { getProductsByCount, fetchProductsByFilter } from '../functions/product'
 import { useSelector, useDispatch } from 'react-redux'
 import ProductCard from '../components/cards/ProductCard'
 import { Menu, Slider, Checkbox } from 'antd'
-import { DollarOutlined, DownSquareOutlined } from '@ant-design/icons'
+import { DollarOutlined, DownSquareOutlined, StarOutlined } from '@ant-design/icons'
 import { getCategories } from '../functions/category'
+import Star from '../components/forms/Star'
 
 const { SubMenu, ItemGroup } = Menu
 
@@ -15,6 +16,7 @@ const Shop = () => {
     const [ok, setOk] = useState(false)
     const [categories, setCategories] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
+    const [star, setStar] = useState('')
 
     const dispatch = useDispatch()
     const { search } = useSelector((state) => ({ ...state }))
@@ -34,7 +36,7 @@ const Shop = () => {
             })
     }
 
-    // 1. load products by  default on page load
+    // 1. Load products by  default on page load
     const loadAllProducts = () => {
         getProductsByCount(12).then((p) => {
             setProducts(p.data)
@@ -42,7 +44,7 @@ const Shop = () => {
         })
     }
 
-    // 2. load products on user search input
+    // 2. Load products on user search input
     useEffect(() => {
         const delayed = setTimeout(() => {
             fetchProducts({ query: text })
@@ -50,7 +52,7 @@ const Shop = () => {
         return () => clearTimeout(delayed)
     }, [text])
 
-    // 3. load products based on price range
+    // 3. Load products based on price range
     useEffect(() => {
         console.log('ok to request')
         fetchProducts({ price })
@@ -61,14 +63,16 @@ const Shop = () => {
             type: 'SEARCH_QUERY',
             payload: { text: '' }
         })
+        //reset
         setCategoryIds([])
         setPrice(value)
+        setStar('')
         setTimeout(() => {
             setOk(!ok)
         }, 300)
     }
 
-    // 4. load products based on category
+    // 4. Load products based on category
     // show categories in a list of checkbox
     const showCategories = () => categories.map((c) => //
         (<div key={c._id}>
@@ -86,11 +90,13 @@ const Shop = () => {
 
     // handle check for categories
     const handleCheck = (e) => {
+        //reset
         dispatch({
             type: 'SEARCH_QUERY',
             payload: { text: '' }
         })
         setPrice([0, 0])
+        setStar('')
         // console.log(e.target.value)
         let inTheState = [...categoryIds]
         let justChecked = e.target.value
@@ -105,8 +111,26 @@ const Shop = () => {
         setCategoryIds(inTheState)
         // console.log("inTheState", inTheState)
         fetchProducts({ category: inTheState })
-
     }
+
+    // 5. Show products by star rating
+    const handleStarClick = (num) => {
+        // console.log(num)'
+        setPrice([0, 0])
+        setCategoryIds([])
+        setStar(num)
+        fetchProducts({ stars: num })
+    }
+
+    const showStars = () => (
+        <div className='pr-4 pl-4 pb-2'>
+            <Star starClick={handleStarClick} numberOfStars={5} />
+            <Star starClick={handleStarClick} numberOfStars={4} />
+            <Star starClick={handleStarClick} numberOfStars={3} />
+            <Star starClick={handleStarClick} numberOfStars={2} />
+            <Star starClick={handleStarClick} numberOfStars={1} />
+        </div>
+    )
 
     return (
         <div className='container-fluid'>
@@ -114,7 +138,7 @@ const Shop = () => {
                 <div className='col-md-3 pt-2'>
                     <h4>Search/Filter</h4>
                     <hr />
-                    <Menu defaultOpenKeys={['1', '2']} mode='inline'>
+                    <Menu defaultOpenKeys={['1', '2', '3']} mode='inline'>
                         {/* price */}
                         <SubMenu key='1' title={<span className='h6'><DollarOutlined />Price</span>}>
                             <div>
@@ -132,6 +156,12 @@ const Shop = () => {
                         <SubMenu key='2' title={<span className='h6'><DownSquareOutlined />Categories</span>}>
                             <div style={{ marginTop: '-10px' }}>
                                 {showCategories()}
+                            </div>
+                        </SubMenu>
+                        {/* stars */}
+                        <SubMenu key='3' title={<span className='h6'><StarOutlined />Rating</span>}>
+                            <div style={{ marginTop: '-10px' }}>
+                                {showStars()}
                             </div>
                         </SubMenu>
                     </Menu>
