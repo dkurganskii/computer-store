@@ -35,6 +35,8 @@ const Shop = () => {
         "ASUS",
     ]);
     const [brand, setBrand] = useState("");
+    const [colors, setColors] = useState(["Black", "Brown", "Silver", "White", "Blue"])
+    const [color, setColor] = useState('')
 
     let dispatch = useDispatch();
     let { search } = useSelector((state) => ({ ...state }));
@@ -215,14 +217,42 @@ const Shop = () => {
         setPrice([0, 0]);
         setCategoryIds([]);
         setStar("");
+        setColor('')
         setBrand(e.target.value);
         fetchProducts({ brand: e.target.value });
+    };
+
+    // 8. show products based on color 
+    const showColors = () =>
+        colors.map((c) => (
+            <Radio
+                value={c}
+                name={c}
+                checked={c === color}
+                onChange={handleColor}
+                className="pb-1 pl-4 pr-4"
+            >
+                {c}
+            </Radio>
+        ));
+
+    const handleColor = (e) => {
+        setSub("");
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: "" },
+        });
+        setPrice([0, 0]);
+        setCategoryIds([]);
+        setStar("");
+        setColor(e.target.value);
+        fetchProducts({ color: e.target.value });
     };
 
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className="col-md-3 pt-2">
+                <div className="col-md-2 pt-2">
                     <h4>Search/Filter</h4>
                     <hr />
 
@@ -300,6 +330,20 @@ const Shop = () => {
                         >
                             <div style={{ maringTop: "-10px" }} className="pr-5">
                                 {showBrands()}
+                            </div>
+                        </SubMenu>
+
+                        {/* colors */}
+                        <SubMenu
+                            key="6"
+                            title={
+                                <span className="h6">
+                                    <DownSquareOutlined /> Colors
+                </span>
+                            }
+                        >
+                            <div style={{ maringTop: "-10px" }} className="pr-5">
+                                {showColors()}
                             </div>
                         </SubMenu>
                     </Menu>
