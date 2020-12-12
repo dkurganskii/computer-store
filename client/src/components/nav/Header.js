@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Menu } from "antd";
+import { Menu, Badge } from "antd";
 import {
     AppstoreOutlined,
     SettingOutlined,
     UserOutlined,
     UserAddOutlined,
     LoginOutlined,
-    ShoppingOutlined
+    ShoppingOutlined,
+    ShoppingCartOutlined
 } from "@ant-design/icons";
 import { Link, useHistory } from "react-router-dom";
 import firebase from 'firebase'
@@ -18,7 +19,7 @@ const { SubMenu, Item } = Menu;
 const Header = () => {
     const [current, setCurrent] = useState("home");
     let dispatch = useDispatch()
-    let { user } = useSelector((state) => ({ ...state }))
+    let { user, cart } = useSelector((state) => ({ ...state }))
     let history = useHistory()
 
     const handleClick = (e) => {
@@ -45,25 +46,39 @@ const Header = () => {
                 <Link to="/shop">Shop</Link>
             </Item>
 
-            {!user && (<Item key="register" icon={<UserAddOutlined />} className="float-right">
-                <Link to="/register">Register</Link>
-            </Item>)}
+            <Item key="cart" icon={<ShoppingCartOutlined />}>
+                <Link to="/cart">
+                    <Badge count={cart.length} offset={[9, 0]}>
+                        Cart
+                    </Badge>
+                </Link>
+            </Item>
 
-            {!user && (<Item key="login" icon={<UserOutlined />} className="float-right">
-                <Link to="/login">Login</Link>
-            </Item>)}
+            {
+                !user && (<Item key="register" icon={<UserAddOutlined />} className="float-right">
+                    <Link to="/register">Register</Link>
+                </Item>)
+            }
 
-            {user && (<SubMenu icon={<SettingOutlined />} title={user.email && user.email.split('@')[0]}
-                className='float-right'>
-                { user && user.role === 'subscriber' && <Item><Link to='/user/history'>Dashboard</Link></Item>}
-                { user && user.role === 'admin' && <Item><Link to='/admin/dashboard'>Dashboard</Link></Item>}
+            {
+                !user && (<Item key="login" icon={<UserOutlined />} className="float-right">
+                    <Link to="/login">Login</Link>
+                </Item>)
+            }
 
-                <Item icon={<LoginOutlined />} onClick={logout}>Logout</Item>
-            </SubMenu>)}
+            {
+                user && (<SubMenu icon={<SettingOutlined />} title={user.email && user.email.split('@')[0]}
+                    className='float-right'>
+                    { user && user.role === 'subscriber' && <Item><Link to='/user/history'>Dashboard</Link></Item>}
+                    { user && user.role === 'admin' && <Item><Link to='/admin/dashboard'>Dashboard</Link></Item>}
+
+                    <Item icon={<LoginOutlined />} onClick={logout}>Logout</Item>
+                </SubMenu>)
+            }
             <span className='float-right p-1'>
                 <Search />
             </span>
-        </Menu>
+        </Menu >
     );
 };
 
