@@ -1,7 +1,7 @@
 const Product = require("../models/product");
 const User = require("../models/user");
 const Cart = require("../models/cart");
-const slugify = require("slugify");
+
 
 exports.userCart = async (req, res) => {
     // console.log(req.body) // {cart: []}
@@ -12,7 +12,7 @@ exports.userCart = async (req, res) => {
     const user = await User.findOne({ email: req.user.email }).exec()
 
     // check if cart with logged in user id already exists
-    let cartExistByThisUser = await Cart.findById({ orderedBy: user._id }).exec()
+    let cartExistByThisUser = await Cart.findOne({ orderedBy: user._id }).exec()
 
     if (cartExistByThisUser) {
         cartExistByThisUser.remove()
@@ -43,6 +43,16 @@ exports.userCart = async (req, res) => {
         cartTotal,
         orderedBy: user._id
     }).save()
-    console.log('new cart', newCart)
+    console.log('new cart--->', newCart)
     res.json({ ok: true })
+}
+
+exports.getUserCart = async (req, res) => {
+    const user = await User.findOne({ email: req.user.email }).exec()
+
+    let cart = await Cart.findOne({ orderedBy: user._id })
+        .populate('products.product', '_id title price totalAfterDicount').exec()
+
+    const { products, cartTotal, totalAfterDicount } = cart
+    res.json({ products, cartTotal, totalAfterDicount })
 }
