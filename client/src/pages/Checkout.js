@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getUserCart } from '../functions/user'
+import { toast } from 'react-toastify'
+import { getUserCart, emptyUserCart } from '../functions/user'
 
 const Checkout = () => {
     const dispatch = useDispatch()
@@ -17,7 +18,27 @@ const Checkout = () => {
             })
     }, [])
 
+    const emptyCart = () => {
+        // remove from localStorage
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem('cart')
+        }
+        // remove from redux
+        dispatch({
+            type: 'ADD_TO_CART',
+            payload: []
+        })
+        // remove from db
+        emptyUserCart(user.token)
+            .then(res => {
+                setProducts([])
+                setTotal(0)
+                toast.success('Cart is empty. Continue shopping.')
+            })
+    }
+
     const saveAddressToDb = () => {
+
     }
 
     return (
@@ -51,7 +72,12 @@ textarea
                         <button className='btn btn-primary'>Place Order</button>
                     </div>
                     <div className='col-md-6'>
-                        <button className='btn btn-primary'>Empty Cart</button>
+                        <button
+                            // disabled={!products.lenght}
+                            onClick={emptyCart}
+                            className='btn btn-primary'>
+                            Empty Cart
+                                </button>
                     </div>
                 </div>
             </div>
