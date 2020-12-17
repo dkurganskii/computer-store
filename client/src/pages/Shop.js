@@ -35,9 +35,15 @@ const Shop = () => {
         "ASUS",
     ]);
     const [brand, setBrand] = useState("");
-    const [colors, setColors] = useState(["Black", "Brown", "Silver", "White", "Blue"])
-    const [color, setColor] = useState('')
-    const [shipping, setShipping] = useState('')
+    const [colors, setColors] = useState([
+        "Black",
+        "Brown",
+        "Silver",
+        "White",
+        "Blue",
+    ]);
+    const [color, setColor] = useState("");
+    const [shipping, setShipping] = useState("");
 
     let dispatch = useDispatch();
     let { search } = useSelector((state) => ({ ...state }));
@@ -68,9 +74,9 @@ const Shop = () => {
     // 2. load products on user search input
     useEffect(() => {
         const delayed = setTimeout(() => {
-            fetchProducts({ query: text })
+            fetchProducts({ query: text });
             if (!text) {
-                loadAllProducts()
+                loadAllProducts();
             }
         }, 300);
         return () => clearTimeout(delayed);
@@ -94,7 +100,8 @@ const Shop = () => {
         setStar("");
         setSub("");
         setBrand("");
-        setShipping('')
+        setColor("");
+        setShipping("");
         setTimeout(() => {
             setOk(!ok);
         }, 300);
@@ -129,7 +136,8 @@ const Shop = () => {
         setStar("");
         setSub("");
         setBrand("");
-        setShipping('')
+        setColor("");
+        setShipping("");
         // console.log(e.target.value);
         let inTheState = [...categoryIds];
         let justChecked = e.target.value;
@@ -160,7 +168,8 @@ const Shop = () => {
         setStar(num);
         setSub("");
         setBrand("");
-        setShipping('')
+        setColor("");
+        setShipping("");
         fetchProducts({ stars: num });
     };
 
@@ -198,7 +207,8 @@ const Shop = () => {
         setCategoryIds([]);
         setStar("");
         setBrand("");
-        setShipping('')
+        setColor("");
+        setShipping("");
         fetchProducts({ sub });
     };
 
@@ -225,13 +235,13 @@ const Shop = () => {
         setPrice([0, 0]);
         setCategoryIds([]);
         setStar("");
-        setColor('')
-        setShipping('')
+        setColor("");
         setBrand(e.target.value);
+        setShipping("");
         fetchProducts({ brand: e.target.value });
     };
 
-    // 8. show products based on color 
+    // 8. show products based on color
     const showColors = () =>
         colors.map((c) => (
             <Radio
@@ -253,34 +263,37 @@ const Shop = () => {
         });
         setPrice([0, 0]);
         setCategoryIds([]);
-        setBrand('')
         setStar("");
-        setShipping('')
+        setBrand("");
         setColor(e.target.value);
+        setShipping("");
         fetchProducts({ color: e.target.value });
     };
 
-    // 9. Show products based on shipping yes/no
+    // 9. show products based on shipping yes/no
     const showShipping = () => (
         <>
             <Checkbox
-                className='pb-2 pl-4 pr-4'
-                onChange={handleShippingChange}
-                value='Yes'
-                checked={shipping === 'Yes'}
-            >Yes
-            </Checkbox>
-            <Checkbox
-                className='pb-2 pl-4 pr-4'
-                onChange={handleShippingChange}
-                value='No'
-                checked={shipping === 'No'}
-            >No
-            </Checkbox>
-        </>
-    )
+                className="pb-2 pl-4 pr-4"
+                onChange={handleShippingchange}
+                value="Yes"
+                checked={shipping === "Yes"}
+            >
+                Yes
+      </Checkbox>
 
-    const handleShippingChange = (e) => {
+            <Checkbox
+                className="pb-2 pl-4 pr-4"
+                onChange={handleShippingchange}
+                value="No"
+                checked={shipping === "No"}
+            >
+                No
+      </Checkbox>
+        </>
+    );
+
+    const handleShippingchange = (e) => {
         setSub("");
         dispatch({
             type: "SEARCH_QUERY",
@@ -289,16 +302,16 @@ const Shop = () => {
         setPrice([0, 0]);
         setCategoryIds([]);
         setStar("");
-        setBrand('')
-        setColor('')
+        setBrand("");
+        setColor("");
         setShipping(e.target.value);
         fetchProducts({ shipping: e.target.value });
-    }
+    };
 
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className="col-md-2 pt-2">
+                <div className="col-md-3 pt-2">
                     <h4>Search/Filter</h4>
                     <hr />
 

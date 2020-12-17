@@ -6,3 +6,21 @@
 .pointer{
     cursor: pointer
 }
+
+
+tbody td {
+  
+    text-align: left;
+    /* height: 10px; */
+    height: 50px;
+    vertical-align: center;
+  }
+
+
+tbody th {
+    height: auto;
+    text-align: center; 
+  }
+
+
+
