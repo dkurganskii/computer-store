@@ -94,7 +94,7 @@ exports.applyCouponToUserCart = async (req, res) => {
     }
     console.log('VALID COUPON', validCoupon)
 
-    const user = await User.findOne({ emal: req.user.email }).exec()
+    const user = await User.findOne({ email: req.user.email }).exec()
 
     let { products, cartTotal } = await Cart.findOne({ orderedBy: user._id })
         .populate('products.product', '_id title price').exec()
