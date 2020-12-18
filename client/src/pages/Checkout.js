@@ -11,6 +11,7 @@ const Checkout = () => {
     const [total, setTotal] = useState(0);
     const [address, setAddress] = useState("");
     const [addressSaved, setAddressSaved] = useState(false);
+    const [coupon, setCoupon] = useState('')
 
     const dispatch = useDispatch();
     const { user } = useSelector((state) => ({ ...state }))
@@ -51,35 +52,75 @@ const Checkout = () => {
         });
     };
 
+    const applyDiscountCoupon = () => {
+        console.log('send coupon to backend', coupon)
+    }
+
+    const showAddress = () =>
+    (
+        <>
+            <ReactQuill theme="snow" value={address} onChange={setAddress} />
+            <button className="btn btn-primary mt-2" onClick={saveAddressToDb}>
+                Save
+        </button>
+        </>
+    )
+
+
+    const showProductSummary = () => (
+        <>
+            {products.map((p, i) => (
+                <div key={i}>
+                    <p>
+                        {p.product.title} ({p.color}) x {p.count} ={" "}
+                        {p.product.price * p.count}
+                    </p>
+                </div>
+            ))}
+        </>
+    )
+
+    {
+        products.map((p, i) => (
+            <div key={i}>
+                <p>
+                    {p.product.title} ({p.color}) x {p.count} ={" "}
+                    {p.product.price * p.count}
+                </p>
+            </div>
+        ))
+    }
+
+    const showApplyCoupon = () => (
+        <>
+            <input
+                onChange={e => setCoupon(e.target.value)}
+                value={coupon}
+                type='text'
+                className='form-control' />
+            <button onClick={applyDiscountCoupon} className='btn btn-primary mt-2'>Apply</button>
+        </>
+    )
+
     return (
         <div className="row">
             <div className="col-md-6">
                 <h4>Delivery Address</h4>
                 <br />
                 <br />
-                <ReactQuill theme="snow" value={address} onChange={setAddress} />
-                <button className="btn btn-primary mt-2" onClick={saveAddressToDb}>
-                    Save
-        </button>
+                {showAddress()}
                 <hr />
                 <h4>Got Coupon?</h4>
                 <br />
-        coupon input and apply button
-      </div>
+                {showApplyCoupon()}
+            </div>
 
             <div className="col-md-6">
                 <h4>Order Summary</h4>
                 <hr />
                 <p>Products {products.length}</p>
                 <hr />
-                {products.map((p, i) => (
-                    <div key={i}>
-                        <p>
-                            {p.product.title} ({p.color}) x {p.count} ={" "}
-                            {p.product.price * p.count}
-                        </p>
-                    </div>
-                ))}
+                {showProductSummary()}
                 <hr />
                 <p>Cart Total: {total}</p>
 
