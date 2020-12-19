@@ -30,6 +30,7 @@ import Shop from './pages/Shop'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import CreateCouponPage from './pages/admin/coupon/CreateCouponPage'
+import Payment from './pages/Payment'
 
 
 import { auth } from './firebase'
@@ -97,6 +98,7 @@ const App = () => {
                 <Route exact path="/shop/" component={Shop} />
                 <Route exact path="/cart/" component={Cart} />
                 <Route exact path="/checkout/" component={Checkout} />
+                <UserRoute exact path="/payment/" component={Payment} />
             </Switch>
         </>
     );
