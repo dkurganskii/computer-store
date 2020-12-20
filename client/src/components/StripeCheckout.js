@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { useSelector, useDispatch } from 'react-redux'
 import { createPaymentIntent } from '../functions/stripe'
@@ -25,11 +26,31 @@ const StrikeCheckout = ({ history }) => {
     }, [])
 
     const handleSubmit = async (e) => {
+        e.preventDefault()
+        setProcessing(true)
 
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement),
+                billing_details: {
+                    name: e.target.name.value
+                }
+            }
+        })
+        if (payload.error) {
+            setError(`Payment failed ${payload.error.message}`)
+            setProcessing(false)
+        } else {
+            console.log(JSON.stringify(payload, null, 4))
+            setError(null)
+            setProcessing(false)
+            setSucceeded(true)
+        }
     }
 
     const handleChange = async (e) => {
-
+        setDisabled(e.empty)
+        setError(e.error ? e.error.message : '')
     }
 
     const cartStyle = {
@@ -52,6 +73,8 @@ const StrikeCheckout = ({ history }) => {
 
     return (
         <>
+            <p className={succeeded ? 'result-message' : 'result-message hidden'}>
+                Payment Successful <Link to='/user/history'>See it in your purchase history</Link></p>
             <form
                 id='payment-form'
                 className='stripe-form'
@@ -70,6 +93,8 @@ const StrikeCheckout = ({ history }) => {
                         {processing ? <div className='spinner' id='spinner'></div> : 'Pay'}
                     </span>
                 </button>
+                <br />
+                {error && <div className='card-error' role='alert'>{error}</div>}
             </form>
         </>
     )
