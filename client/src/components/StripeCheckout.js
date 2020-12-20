@@ -6,7 +6,7 @@ import { createPaymentIntent } from '../functions/stripe'
 
 const StrikeCheckout = ({ history }) => {
     const dispatch = useDispatch()
-    const { user } = useSelector((state) => ({ ...state }))
+    const { user, coupon } = useSelector((state) => ({ ...state }))
 
     const [succeeded, setSucceeded] = useState(false)
     const [error, setError] = useState(null)
@@ -18,7 +18,7 @@ const StrikeCheckout = ({ history }) => {
     const elements = useElements()
 
     useEffect(() => {
-        createPaymentIntent(user.token)
+        createPaymentIntent(user.token, coupon)
             .then(res => {
                 console.log('create payment intent', res.data)
                 setClientSecret(res.data.clientSecret)
