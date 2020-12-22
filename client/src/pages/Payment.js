@@ -16,6 +16,9 @@ const Payment = () => {
                     <StripeCheckout />
                 </div>
             </Elements>
+            <br />
+            <p>*Please use the following test credit card for payments*</p>
+            <p>4242 4242 4242 4242 - Exp: Any future date - CVV: Any 3 digits</p>
         </div>
     )
 }

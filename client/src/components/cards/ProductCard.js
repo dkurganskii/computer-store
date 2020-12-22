@@ -55,11 +55,11 @@ const ProductCard = ({ product }) => {
         <>
             {product && product.ratings && product.ratings.length > 0 ? showAverage(product) :
                 <div className='text-center pt-1 pb-3'>No rating yet</div>}
-            <Card
+            <Card hoverable
                 cover={
                     <img
                         src={images && images.length ? images[0].url : laptop}
-                        style={{ height: "150px", objectFit: "cover" }}
+                        // style={{ height: "250px", objectFit: "cover" }}
                         className="p-1"
                     />
                 }
