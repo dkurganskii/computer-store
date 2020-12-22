@@ -45,7 +45,7 @@ const Login = ({ history }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
-        console.table(email, password)
+        // console.table(email, password)
         try {
             const result = await auth.signInWithEmailAndPassword(email, password)
             // console.log(result)
@@ -129,9 +129,16 @@ const Login = ({ history }) => {
                     <Button onClick={googleLogin} type='danger' className='mb-3' block shape='round'
                         icon={<GoogleOutlined />} size='large'>Login with Google</Button>
                     <Link to='/forgot/password' className='float-right text-danger'>Forgot Password</Link>
+                    <br />
+                    <br />
+                    <p>Sample User Logins:</p>
+                    <p>admin@example.com (Admin)123456</p>
+                    <p>john@example.com (Customer)123456</p>
                 </div>
+
             </div>
         </div>
+
     )
 }
 
