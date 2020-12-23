@@ -45,6 +45,7 @@ const NewArrivals = () => {
 
             <div className="row">
                 <nav className="col-md-4 offset-md-4 text-center pt-5 p-3">
+                    <br />
                     <Pagination
                         current={page}
                         total={(productsCount / 3) * 10}

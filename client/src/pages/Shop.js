@@ -33,6 +33,9 @@ const Shop = () => {
         "Microsoft",
         "Lenovo",
         "ASUS",
+        "HP",
+        "Acer",
+        "MSI"
     ]);
     const [brand, setBrand] = useState("");
     const [colors, setColors] = useState([
@@ -435,7 +438,7 @@ const Shop = () => {
 
                     <div className="row pb-5">
                         {products.map((p) => (
-                            <div key={p._id} className="col-md-4 mt-3">
+                            <div key={p._id} className="col-md-4 mt-3 mb-5">
                                 <ProductCard product={p} />
                             </div>
                         ))}

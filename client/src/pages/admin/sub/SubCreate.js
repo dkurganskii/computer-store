@@ -22,14 +22,13 @@ const SubCreate = () => {
 
     useEffect(() => {
         loadCategories();
-        loadSubs()
+        loadSubs();
     }, []);
 
     const loadCategories = () =>
         getCategories().then((c) => setCategories(c.data));
 
-    const loadSubs = () =>
-        getSubs().then((s) => setSubs(s.data));
+    const loadSubs = () => getSubs().then((s) => setSubs(s.data));
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,7 +40,7 @@ const SubCreate = () => {
                 setLoading(false);
                 setName("");
                 toast.success(`"${res.data.name}" is created`);
-                loadSubs()
+                loadSubs();
             })
             .catch((err) => {
                 console.log(err);
@@ -59,7 +58,7 @@ const SubCreate = () => {
                 .then((res) => {
                     setLoading(false);
                     toast.error(`${res.data.name} deleted`);
-                    loadSubs()
+                    loadSubs();
                 })
                 .catch((err) => {
                     if (err.response.status === 400) {

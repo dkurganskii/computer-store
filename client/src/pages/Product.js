@@ -65,6 +65,7 @@ const Product = ({ match }) => {
                     <ProductCard product={r} />
                 </div>)) : <div className='text-center col'>No Products Found</div>}
         </div>
+        <br />
     </div>
 }
 

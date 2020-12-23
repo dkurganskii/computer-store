@@ -26,7 +26,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
         // create cart array
         let cart = []
         if (typeof window !== 'undefined') {
-            // if cart is in loacl storage GET it
+            // if cart is in local storage GET it
             if (localStorage.getItem('cart')) {
                 cart = JSON.parse(localStorage.getItem('cart'))
             }
@@ -58,7 +58,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 
     return (
         <>
-            <div className="col-md-7">
+            <div className="col-md-6">
                 {images && images.length ? (
                     <Carousel showArrows={true} autoPlay infiniteLoop>
                         {images && images.map((i) => <img src={i.url} key={i.public_id} />)}
@@ -71,7 +71,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                         {description && description}
                     </TabPane>
                     <TabPane tab='More' key='2'>
-                        Call us on 123 456 78 90  to learn more about this product
+                        Call us on (123)456-7890 to learn more about this product
                     </TabPane>
                 </Tabs>
             </div>
