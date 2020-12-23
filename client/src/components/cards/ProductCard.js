@@ -51,11 +51,15 @@ const ProductCard = ({ product }) => {
 
     // destructure
     const { images, title, description, slug, price } = product;
+
     return (
         <>
-            {product && product.ratings && product.ratings.length > 0 ? showAverage(product) :
-                <div className='text-center pt-1 pb-3'>No rating yet</div>}
-            <Card hoverable
+            <div >
+                {product && product.ratings && product.ratings.length > 0 ? showAverage(product) :
+                    <div className='text-center pt-1 pb-3'>No rating yet</div>}
+            </div>
+
+            <Card hoverable style={{ height: '100%' }}
                 cover={
                     <img
                         src={images && images.length ? images[0].url : laptop}
@@ -77,7 +81,7 @@ const ProductCard = ({ product }) => {
             >
                 <Meta
                     title={`${title} - $${price}`}
-                    description={`${description && description.substring(0, 40)}...`}
+                    description={`${description && description.substring(0, 30)}...`}
                 />
             </Card>
         </>
