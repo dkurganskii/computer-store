@@ -59,31 +59,31 @@ const ProductCard = ({ product }) => {
                     <div className='text-center pt-1 pb-3'>No rating yet</div>}
             </div>
 
-            <Link to={`/product/${slug}`}>
-                <Card hoverable style={{ height: '100%' }}
-                    cover={
-                        <img src={images && images.length ? images[0].url : laptop}
-                            className="p-1"
-                        />
-                    }
-                    actions={[
-                        <Link to={`/product/${slug}`}>
-                            <EyeOutlined className="text-warning" /> <br /> View Product
-        </Link>,
-                        <Tooltip title={tooltip}>
-                            <a onClick={handleAddToCart} disabled={product.quantity < 1}>
-                                <ShoppingCartOutlined className="text-danger" /> <br />
-                                {product.quantity > 1 ? 'Add to cart' : 'Out of stock'}
-                            </a>
-                        </Tooltip>,
-                    ]}
-                >
-                    <Meta
-                        title={`${title} - $${price}`}
-                        description={`${description && description.substring(0, 30)}...`}
+            {/* <Link to={`/product/${slug}`}> */}
+            <Card hoverable style={{ height: '100%' }}
+                cover={
+                    <img src={images && images.length ? images[0].url : laptop}
+                        className="p-1"
                     />
-                </Card>
-            </Link>
+                }
+                actions={[
+                    <Link to={`/product/${slug}`}>
+                        <EyeOutlined className="text-warning" /> <br /> View Product
+                </Link>,
+                    <Tooltip title={tooltip}>
+                        <a onClick={handleAddToCart} disabled={product.quantity < 1}>
+                            <ShoppingCartOutlined className="text-danger" /> <br />
+                            {product.quantity > 1 ? 'Add to cart' : 'Out of stock'}
+                        </a>
+                    </Tooltip>,
+                ]}
+            >
+                <Meta
+                    title={`${title} - $${price}`}
+                    description={`${description && description.substring(0, 30)}...`}
+                />
+            </Card>
+            {/* </Link> */}
         </>
     );
 };
