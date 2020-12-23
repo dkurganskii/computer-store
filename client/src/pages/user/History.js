@@ -5,6 +5,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import ShowPaymentInfo from "../../components/cards/ShowPaymentInfo";
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    StyleSheet,
+    PDFDownloadLink,
+    PDFViewer,
+} from "@react-pdf/renderer";
 
 const History = () => {
     const [orders, setOrders] = useState([]);
@@ -37,7 +46,6 @@ const History = () => {
                 {order.products.map((p, i) => (
                     <tr key={i}>
                         <td>
-                            {console.log('PRODUCT', p)}
                             <b>{p.product.title}</b>
                         </td>
                         <td>{p.product.price}</td>
@@ -57,15 +65,32 @@ const History = () => {
         </table>
     );
 
-    const showEachOrder = () =>
+    const showDownloadLink = (order) => (
+        <PDFDownloadLink
+            document={
+                <Document>
+                    <Page size="A4">
+                        <View>
+                            <Text>Section #1</Text>
+                            <Text>Section #2</Text>
+                        </View>
+                    </Page>
+                </Document>
+            }
+            fileName="invoice.pdf"
+            className="btn btn-sm  btn-outline-primary"
+        >
+            Download PDF
+        </PDFDownloadLink>
+    );
+
+    const showEachOrders = () =>
         orders.map((order, i) => (
             <div key={i} className="m-5 p-3 card">
                 <ShowPaymentInfo order={order} />
                 {showOrderInTable(order)}
                 <div className="row">
-                    <div className="col">
-                        <p>PDF download</p>
-                    </div>
+                    <div className="col">{showDownloadLink(order)}</div>
                 </div>
             </div>
         ));
@@ -80,7 +105,7 @@ const History = () => {
                     <h4>
                         {orders.length > 0 ? "User purchase orders" : "No purchase orders"}
                     </h4>
-                    {showEachOrder()}
+                    {showEachOrders()}
                 </div>
             </div>
         </div>
