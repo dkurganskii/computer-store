@@ -12,7 +12,10 @@ const {
     saveAddress,
     applyCouponToUserCart,
     createOrder,
-    orders
+    orders,
+    addToWishlist,
+    wishlist,
+    removeFromWishlist
 } = require("../controllers/user");
 
 router.post("/user/cart", authCheck, userCart); // save cart
@@ -21,13 +24,10 @@ router.delete("/user/cart", authCheck, emptyCart); // empty cart
 router.post("/user/address", authCheck, saveAddress);
 router.post('/user/order', authCheck, createOrder)
 router.get('/user/orders', authCheck, orders)
-//coupon
 router.post('/user/cart/coupon', authCheck, applyCouponToUserCart)
+router.post('/user/wishlist', authCheck, addToWishlist)
+router.get('/user/wishlist', authCheck, wishlist)
+router.put('/user/wishlist/:productId', authCheck, removeFromWishlist)
 
-// router.get("/user", (req, res) => {
-//   res.json({
-//     data: "hey you hit user API endpoint",
-//   });
-// });
 
 module.exports = router;
