@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserCart, emptyUserCart, saveUserAddress, applyCoupon } from "../functions/user";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import { Input, Button } from 'antd';
 
 const Checkout = ({ history }) => {
+    const { TextArea } = Input;
 
     const [products, setProducts] = useState([]);
     const [total, setTotal] = useState(0);
@@ -81,10 +81,18 @@ const Checkout = ({ history }) => {
     const showAddress = () =>
     (
         <>
-            <ReactQuill theme="snow" value={address} onChange={setAddress} />
-            <button className="btn btn-primary mt-2" onClick={saveAddressToDb}>
+            {/* <ReactQuill theme="snow" value={address} onChange={setAddress} /> */}
+            <TextArea
+                type='text'
+                placeholder='Enter address'
+                value={address}
+                required
+                onChange={e => { setAddress(e.target.value) }}
+            />
+            <Button type="primary" className="text-center btn btn-primary btn-raised mt-4" onClick={saveAddressToDb}>
                 Save
-        </button>
+        </Button>
+            <br />
         </>
     )
 
@@ -115,34 +123,35 @@ const Checkout = ({ history }) => {
 
     const showApplyCoupon = () => (
         <>
-            <input
+            <Input
                 onChange={e => {
                     setCoupon(e.target.value)
                     setDiscountError('')
                 }}
                 value={coupon}
                 type='text'
-                className='form-control' />
-            <button onClick={applyDiscountCoupon} className='btn btn-primary mt-2'>Apply</button>
+                placeholder='Enter coupon'
+            />
+            <Button onClick={applyDiscountCoupon} className='text-center btn btn-primary btn-raised mt-4'>Apply</Button>
         </>
     )
 
     return (
         <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-5 ml-4">
+                <br />
                 <h4>Delivery Address</h4>
-                <br />
-                <br />
                 {showAddress()}
-                <hr />
-                <h4>Got Coupon?</h4>
                 <br />
+                <br />
+                <h4>Got Coupon?</h4>
                 {showApplyCoupon()}
                 <br />
                 {discountError && <p className='bg-danger p-2'>{discountError}</p>}
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-5 ml-5">
+                <br />
                 <h4>Order Summary</h4>
                 <hr />
                 <p>Products {products.length}</p>
@@ -154,24 +163,24 @@ const Checkout = ({ history }) => {
                     <p className='bg-success p-2'>Discount Applied: Total Payable: ${totalAfterDiscount}</p>
                 )}
                 <div className="row">
-                    <div className="col-md-6">
-                        <button
-                            className="btn btn-primary"
+                    <div className="col-md-3 mt-3">
+                        <Button
+                            className='text-center btn btn-primary btn-raised'
                             disabled={!addressSaved || !products.length}
                             onClick={() => history.push('/payment')}
                         >
                             Place Order
-            </button>
+            </Button>
                     </div>
 
-                    <div className="col-md-6">
-                        <button
+                    <div className="col-md-6 mt-3">
+                        <Button
                             disabled={!products.length}
                             onClick={emptyCart}
-                            className="btn btn-primary"
+                            className='text-center btn btn-primary btn-raised'
                         >
                             Empty Cart
-            </button>
+            </Button>
                     </div>
                 </div>
             </div>
