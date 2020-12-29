@@ -53,7 +53,7 @@ const Cart = ({ history }) => {
 
                     {!cart.length ? (
                         <p>
-                            No products in cart. <Link to="/shop">Continue Shopping.</Link>
+                            No products in cart. <Link to="/shop">Continue Shopping</Link>
                         </p>
                     ) : (
                             showCartItems()
@@ -76,7 +76,7 @@ const Cart = ({ history }) => {
                     {user ? (
                         <button
                             onClick={saveOrderToDb}
-                            className="btn btn-sm btn-primary mt-2"
+                            className="text-center btn btn-primary btn-raised mt-2"
                             disabled={!cart.length}
                         >
                             Proceed to Checkout
