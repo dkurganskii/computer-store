@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { getUserCart, emptyUserCart, saveUserAddress, applyCoupon } from "../functions/user";
 import { Input, Button } from 'antd';
 
+
 const Checkout = ({ history }) => {
     const { TextArea } = Input;
 
@@ -42,7 +43,7 @@ const Checkout = ({ history }) => {
             setTotal(0);
             setTotalAfterDiscount(0)
             setCoupon('')
-            toast.success("Cart is emapty. Contniue shopping.");
+            toast.success("Cart is empty. Contniue shopping");
         });
     };
 
