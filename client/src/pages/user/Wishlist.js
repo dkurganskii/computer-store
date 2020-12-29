@@ -24,6 +24,7 @@ const Wishlist = () => {
     })
 
     return (
+
         <div className='container-fluid'>
             <div className='row col-md-8'>
                 <div className='col-md-4'>
@@ -31,6 +32,7 @@ const Wishlist = () => {
                 </div>
                 <div className='col'>
                     <h4>Wishlist</h4>
+                    {!wishlist.length && <p>No products in wishlist. <Link to="/shop">Continue Shopping</Link></p>}
                     {wishlist.map(p => <div key={p._id} className='alert alert-secondary'>
                         <Link to={`/product/${p.slug}`}>{p.title}</Link>
                         <span onClick={() => handleRemove(p._id)} className='btn btn-sm float-right'><DeleteOutlined /></span>
