@@ -7,7 +7,9 @@ import {
     CheckCircleOutlined,
     CloseCircleOutlined,
     CloseOutlined,
+    DeleteOutlined
 } from "@ant-design/icons";
+
 
 const ProductCardInCheckout = ({ p }) => {
     const colors = ["Black", "Brown", "Silver", "White", "Blue"];
@@ -141,7 +143,7 @@ const ProductCardInCheckout = ({ p }) => {
                         )}
                 </td>
                 <td className="text-center">
-                    <CloseOutlined
+                    <DeleteOutlined
                         onClick={handleRemove}
                         className="text-danger pointer"
                     />
