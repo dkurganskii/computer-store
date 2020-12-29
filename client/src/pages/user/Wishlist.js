@@ -25,8 +25,8 @@ const Wishlist = () => {
 
     return (
         <div className='container-fluid'>
-            <div className='row'>
-                <div className='col-md-2'>
+            <div className='row col-md-8'>
+                <div className='col-md-4'>
                     <UserNav />
                 </div>
                 <div className='col'>

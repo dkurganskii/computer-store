@@ -9,8 +9,8 @@ const SideDrawer = () => {
     const { drawer, cart } = useSelector((state) => ({ ...state }))
 
     const imageStyle = {
-        width: '100%',
-        height: '50px',
+        width: '100px',
+        height: '70px',
         objectDit: 'cover'
     }
     return (
@@ -31,12 +31,13 @@ const SideDrawer = () => {
                         {p.images[0] ? (
                             <>
                                 <img src={p.images[0].url} style={imageStyle} />
-                                <p className='text-center bg-secondary text-light'>{p.title} x {p.count}</p>
+                                <p className='text-center'>{p.title} x {p.count}</p>
+                                <br />
                             </>
                         ) : (
                                 <>
                                     <img src={laptop} style={imageStyle} />
-                                    <p className='text-center bg-secondary text-light'>{p.title} x {p.count}</p>
+                                    <p className='text-center'>{p.title} x {p.count}</p>
                                 </>
                             )}
                     </div>
