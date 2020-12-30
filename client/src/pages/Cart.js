@@ -24,6 +24,20 @@ const Cart = ({ history }) => {
             .catch((err) => console.log("cart save err", err));
     };
 
+    const saveCashOrderToDb = () => {
+        // console.log("cart", JSON.stringify(cart, null, 4));
+        dispatch({
+            type: 'COD',
+            payload: true
+        })
+        userCart(cart, user.token)
+            .then((res) => {
+                console.log("CART POST RES", res);
+                if (res.data.ok) history.push("/checkout");
+            })
+            .catch((err) => console.log("cart save err", err));
+    };
+
     const showCartItems = () => (
         <table className="table table-bordered">
             <thead className="thead-light">
@@ -46,10 +60,10 @@ const Cart = ({ history }) => {
     );
 
     return (
-        <div className="container-fluid pt-2">
+        <div className="container-fluid pt-4">
             <div className="row">
                 <div className="col-md-8">
-                    <h4>Cart / {cart.length} Product</h4>
+                    <h4>Cart / {cart.length} Products</h4>
 
                     {!cart.length ? (
                         <p>
@@ -74,15 +88,26 @@ const Cart = ({ history }) => {
           Total: <b>${getTotal()}</b>
                     <hr />
                     {user ? (
-                        <button
-                            onClick={saveOrderToDb}
-                            className="text-center btn btn-primary btn-raised mt-2"
-                            disabled={!cart.length}
-                        >
-                            Proceed to Checkout
+                        <>
+                            <button
+                                onClick={saveOrderToDb}
+                                className="text-center btn btn-primary btn-raised mt-2"
+                                disabled={!cart.length}
+                            >
+                                Proceed to Checkout
                         </button>
+                            <br />
+                            <br />
+                            <button
+                                onClick={saveCashOrderToDb}
+                                className="text-center btn btn-success btn-raised mt-2"
+                                disabled={!cart.length}
+                            >
+                                Pay cash on delivery
+                        </button>
+                        </>
                     ) : (
-                            <button className="btn btn-sm btn-primary mt-2">
+                            <button className="text-center btn  btn-raised mt-2">
                                 <Link
                                     to={{
                                         pathname: "/login",
