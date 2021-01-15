@@ -31,7 +31,7 @@ const Password = () => {
     const passwordUpdateForm = () => (
         <form onSubmit={handleSubmit}>
             <div className='form-group'>
-                <input type='password' onChange={e => setPassword(e.target.value)}
+                <input autoFocus type='password' onChange={e => setPassword(e.target.value)}
                     className='form-control mt-5' placeholder='Enter new password' disabled={loading} value={password} />
                 <button className='text-center btn btn-primary btn-raised mt-4' disabled={loading}>Submit</button>
             </div>

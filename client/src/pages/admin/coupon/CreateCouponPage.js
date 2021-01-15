@@ -120,8 +120,8 @@ const CreateCouponPage = () => {
                         <thead className="thead-light">
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col">Expiry</th>
                                 <th scope="col">Discount</th>
+                                <th scope="col">Expiry</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -130,8 +130,8 @@ const CreateCouponPage = () => {
                             {coupons.map((c) => (
                                 <tr key={c._id}>
                                     <td>{c.name}</td>
-                                    <td>{new Date(c.expiry).toLocaleDateString()}</td>
                                     <td>{c.discount}%</td>
+                                    <td>{new Date(c.expiry).toLocaleDateString()}</td>
                                     <td>
                                         <DeleteOutlined
                                             onClick={() => handleRemove(c._id)}

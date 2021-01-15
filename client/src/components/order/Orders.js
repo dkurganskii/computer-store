@@ -21,7 +21,7 @@ const Orders = ({ orders, handleStatusChange }) => {
                 {order.products.map((p, i) => (
                     <tr key={i}>
                         <td>
-                            <b>{p.product.title}</b>
+                        <b>{p.product.title}</b>
                         </td>
                         <td>${(p.product.price).toFixed(2)}</td>
                         <td>{p.product.brand}</td>
@@ -46,25 +46,6 @@ const Orders = ({ orders, handleStatusChange }) => {
                 <div key={order._id} className="row pb-5 mr-4">
                     <div className="btn btn-block bg-light">
                         <ShowPaymentInfo order={order} showStatus={false} />
-                        {/* <div className="row align-items-center justify-content-center"> */}
-                        <div className="row justify-content-end pr-4">
-                             {/* <div className="col-md-2"> */}
-                             <div >
-                                <select
-                                    onChange={(e) => handleStatusChange(order._id, e.target.value)}
-                                    className="form-control"
-                                    defaultValue={order.orderStatus}
-                                    name="status"
-                                >
-                                    <option value="Not Processed">Not Processed</option>
-                                    <option value="Cash On Delivery">Cash On Delivery</option>
-                                    <option value="Processing">Processing</option>
-                                    <option value="Dispatched">Dispatched</option>
-                                    <option value="Cancelled">Cancelled</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                     {showOrderInTable(order)}
                 </div>

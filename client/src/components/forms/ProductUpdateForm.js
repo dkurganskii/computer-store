@@ -34,7 +34,7 @@ const ProductUpdateForm = ({
     return (
         <>
         <form onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className="form-group pb-4">
                 <label>Title</label>
                 <input
                     type="text"
@@ -45,7 +45,7 @@ const ProductUpdateForm = ({
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group pb-4">
                 <label>Description</label>
                 <input
                     type="text"
@@ -56,7 +56,7 @@ const ProductUpdateForm = ({
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group pb-4">
                 <label>Price</label>
                 <input
                     type="number"
@@ -67,7 +67,7 @@ const ProductUpdateForm = ({
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group pb-4">
                 <label>Shipping</label>
                 <select
                     value={shipping === "Yes" ? "Yes" : "No"}
@@ -80,7 +80,7 @@ const ProductUpdateForm = ({
                 </select>
             </div>
 
-            <div className="form-group">
+            <div className="form-group pb-4">
                 <label>Quantity</label>
                 <input
                     type="number"
@@ -91,7 +91,7 @@ const ProductUpdateForm = ({
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group pb-4">
                 <label>Color</label>
                 <select
                     value={color}
@@ -107,7 +107,7 @@ const ProductUpdateForm = ({
                 </select>
             </div>
 
-            <div className="form-group">
+            <div className="form-group pb-4">
                 <label>Brand</label>
                 <select
                     value={brand}
@@ -123,7 +123,7 @@ const ProductUpdateForm = ({
                 </select>
             </div>
 
-            <div className="form-group">
+            <div className="form-group pb-4">
                 <label>Category</label>
                 <select
                     name="category"
@@ -159,7 +159,6 @@ const ProductUpdateForm = ({
             </div>
             <br />
             <button className="btn btn-primary btn-raised mt-3">Save</button>
-            <hr/>
         </form>
         <br/>
         <br/>
