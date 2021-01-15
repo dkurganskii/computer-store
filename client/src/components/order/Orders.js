@@ -4,6 +4,7 @@ import ShowPaymentInfo from "../cards/ShowPaymentInfo";
 
 const Orders = ({ orders, handleStatusChange }) => {
     const showOrderInTable = (order) => (
+        <div class="table-responsive">
         <table className="table table-bordered">
             <thead className="thead-light">
                 <tr>
@@ -22,7 +23,7 @@ const Orders = ({ orders, handleStatusChange }) => {
                         <td>
                             <b>{p.product.title}</b>
                         </td>
-                        <td>{p.product.price}</td>
+                        <td>${(p.product.price).toFixed(2)}</td>
                         <td>{p.product.brand}</td>
                         <td>{p.color}</td>
                         <td>{p.count}</td>
@@ -37,17 +38,16 @@ const Orders = ({ orders, handleStatusChange }) => {
                 ))}
             </tbody>
         </table>
+        </div>
     );
     return (
         <>
             {orders.map((order) => (
-                <div key={order._id} className="row pb-5">
+                <div key={order._id} className="row pb-5 mr-4">
                     <div className="btn btn-block bg-light">
                         <ShowPaymentInfo order={order} showStatus={false} />
-
-                        <div className="row">
-                            <div className="col-md-4">Delivery Status</div>
-                            <div className="col-md-8">
+                        <div className="row align-items-center justify-content-center">
+                            <div className="col-md-2">
                                 <select
                                     onChange={(e) => handleStatusChange(order._id, e.target.value)}
                                     className="form-control"
