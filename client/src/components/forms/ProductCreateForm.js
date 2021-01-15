@@ -150,7 +150,7 @@ const ProductCreateForm = ({
             )}
 
             <br />
-            <button className="btn btn-outline-info">Save</button>
+            <button className="btn btn-primary btn-raised mt-3">Save</button>
         </form>
     );
 };

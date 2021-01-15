@@ -32,6 +32,7 @@ const ProductUpdateForm = ({
     } = values;
 
     return (
+        <>
         <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <label>Title</label>
@@ -156,10 +157,13 @@ const ProductUpdateForm = ({
                         ))}
                 </Select>
             </div>
-
             <br />
-            <button className="btn btn-outline-info">Save</button>
+            <button className="btn btn-primary btn-raised mt-3">Save</button>
+            <hr/>
         </form>
+        <br/>
+        <br/>
+        </>
     );
 };
 
