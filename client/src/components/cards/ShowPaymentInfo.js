@@ -1,33 +1,43 @@
 import React from "react";
 
 const ShowPaymentInfo = ({ order, showStatus = true }) => (
-    <div>
-        <p>
-            <span>Order Id: {order.paymentIntent.id}</span>
-            {" / "}
-            <span>
-                Amount:{" / "}
+    <div className="container">
+      <div className='row'>
+          <div className='col-md'>
+          <span>ID: {order.paymentIntent.id}</span>
+          </div>
+          {/* <div className='col-md'>
+          <span>
+                TOTAL:{"  "}
                 {(order.paymentIntent.amount /= 100).toLocaleString("en-US", {
                     style: "currency",
                     currency: "USD",
                 })}
             </span>
-            {" / "}
-            <span>Currency: {order.paymentIntent.currency.toUpperCase()}</span>
-            {" / "}
-            <span>Method: {order.paymentIntent.payment_method_types[0]}</span>
-            {" / "}
-            <span>Payment: {order.paymentIntent.status.toUpperCase()}</span>
-            {" / "}
-            <span>
-                Ordered on:{" / "}
-                {new Date(order.createdAt).toLocaleString()}
+          </div> */}
+          <div className='col-md'>
+          <span>
+                ORDERED ON:{"  "}
+                {/* {new Date(order.createdAt).toLocaleString()} */}
+                {new Date(order.createdAt).toLocaleDateString()}
+                
             </span>
-            {" / "}
-            {showStatus && <span className="badge bg-primary text-white">
-                STATUS: {order.orderStatus}
+          </div>
+          <div className='col-md'>
+          <span>
+                TOTAL:{"  "}
+                {(order.paymentIntent.amount /= 100).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                })}
+            </span>
+          </div>
+            <div className='col-md'>
+            {showStatus && <span className="badge-pill bg-info text-white">
+            STATUS: {order.orderStatus}
             </span>}
-        </p>
+            </div>
+            </div>
     </div>
 );
 
