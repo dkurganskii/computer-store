@@ -39,7 +39,7 @@ const Cart = ({ history }) => {
     };
 
     const showCartItems = () => (
-        <div class="table-responsive">
+        <div className="table-responsive">
         <table className="table table-bordered">
             <thead className="thead-light">
                 <tr>

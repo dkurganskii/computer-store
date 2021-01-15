@@ -4,7 +4,7 @@ import ShowPaymentInfo from "../cards/ShowPaymentInfo";
 
 const Orders = ({ orders, handleStatusChange }) => {
     const showOrderInTable = (order) => (
-        <div class="table-responsive">
+        <div className="table-responsive">
         <table className="table table-bordered">
             <thead className="thead-light">
                 <tr>
@@ -46,8 +46,10 @@ const Orders = ({ orders, handleStatusChange }) => {
                 <div key={order._id} className="row pb-5 mr-4">
                     <div className="btn btn-block bg-light">
                         <ShowPaymentInfo order={order} showStatus={false} />
-                        <div className="row align-items-center justify-content-center">
-                            <div className="col-md-2">
+                        {/* <div className="row align-items-center justify-content-center"> */}
+                        <div className="row justify-content-end pr-4">
+                             {/* <div className="col-md-2"> */}
+                             <div >
                                 <select
                                     onChange={(e) => handleStatusChange(order._id, e.target.value)}
                                     className="form-control"

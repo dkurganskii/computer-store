@@ -25,7 +25,7 @@ const History = () => {
 
     const showOrderInTable = (order) => (
         <>
-        <div class="table-responsive">
+        <div className="table-responsive">
         <table className="table table-bordered">
             <thead className="thead-light">
                 <tr>
