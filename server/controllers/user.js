@@ -18,7 +18,7 @@ exports.userCart = async (req, res) => {
 
     if (cartExistByThisUser) {
         cartExistByThisUser.remove();
-        console.log("removed old cart");
+        // console.log("removed old cart");
     }
 
     for (let i = 0; i < cart.length; i++) {
@@ -51,7 +51,7 @@ exports.userCart = async (req, res) => {
         orderedBy: user._id,
     }).save();
 
-    console.log("new cart ----> ", newCart);
+    // console.log("new cart ----> ", newCart);
     res.json({ ok: true });
 };
 
@@ -67,7 +67,7 @@ exports.getUserCart = async (req, res) => {
 };
 
 exports.emptyCart = async (req, res) => {
-    console.log("empty cart");
+    // console.log("empty cart");
     const user = await User.findOne({ email: req.user.email }).exec();
 
     const cart = await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
@@ -85,7 +85,7 @@ exports.saveAddress = async (req, res) => {
 
 exports.applyCouponToUserCart = async (req, res) => {
     const { coupon } = req.body;
-    console.log("COUPON", coupon);
+    // console.log("COUPON", coupon);
 
     const validCoupon = await Coupon.findOne({ name: coupon }).exec();
     if (validCoupon === null) {
@@ -93,7 +93,7 @@ exports.applyCouponToUserCart = async (req, res) => {
             err: "Invalid coupon",
         });
     }
-    console.log("VALID COUPON", validCoupon);
+    // console.log("VALID COUPON", validCoupon);
 
     const user = await User.findOne({ email: req.user.email }).exec();
 
@@ -101,7 +101,7 @@ exports.applyCouponToUserCart = async (req, res) => {
         .populate("products.product", "_id title price")
         .exec();
 
-    console.log("cartTotal", cartTotal, "discount%", validCoupon.discount);
+    // console.log("cartTotal", cartTotal, "discount%", validCoupon.discount);
 
     // calculate the total after discount
     let totalAfterDiscount = (
@@ -109,7 +109,7 @@ exports.applyCouponToUserCart = async (req, res) => {
         (cartTotal * validCoupon.discount) / 100
     ).toFixed(2); // 99.99
 
-    console.log("----------> ", totalAfterDiscount);
+    // console.log("----------> ", totalAfterDiscount);
 
     Cart.findOneAndUpdate(
         { orderedBy: user._id },
@@ -146,9 +146,9 @@ exports.createOrder = async (req, res) => {
     });
 
     let updated = await Product.bulkWrite(bulkOption, {});
-    console.log("PRODUCT QUANTITY-- AND SOLD++", updated);
+    // console.log("PRODUCT QUANTITY-- AND SOLD++", updated);
 
-    console.log("NEW ORDER SAVED", newOrder);
+    // console.log("NEW ORDER SAVED", newOrder);
     res.json({ ok: true });
 };
 
@@ -238,6 +238,6 @@ exports.createCashOrder = async (req, res) => {
     let updated = await Product.bulkWrite(bulkOption, {});
     console.log("PRODUCT QUANTITY-- AND SOLD++", updated);
 
-    console.log("NEW ORDER SAVED", newOrder);
+    // console.log("NEW ORDER SAVED", newOrder);
     res.json({ ok: true });
 };
